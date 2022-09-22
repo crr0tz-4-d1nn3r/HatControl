@@ -37,5 +37,5 @@ set method to random
 low     medium      high
 > bright low
 set brightness to low
-> > help> color > color jet> method > method random> bright > bright low 
+>
 ```
