@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="/js/jquery-3.6.1.min.js"></script>
+    <script src="/js/jquery.terminal.min.js"></script>
+    <link rel="stylesheet" href="/css/jquery.terminal.min.css" />
+    
+</head>
+
+<body>
+    <script>
+        $('body').terminal({
+                help: function(){
+                    this.pause()
+                    console.log('help')
+                    resp = $.post('/',{command: "help"});
+                    console.log(resp)
+                    this.echo(resp)
+                    this.resume()
+                },
+                color: function(c){
+                    console.log(c)
+                    resp = $.post('/', { color: c });
+                    console.log(resp)
+                    this.echo(resp)
+                },
+                method: function(m){
+                    console.log(m)
+                    resp = $.post('/', { method: m });
+                    console.log(resp)
+                    this.echo(resp)
+                },
+                bright: function(b){
+                    console.log(b);
+                    resp = $.post('/', { bright: b });
+                    console.log(resp);
+                    this.echo(resp);
+                }                
+            }, {
+                autocompleteMenu: true,
+                completion: function(a, term){
+                    if (this.get_command().match(/^color /)){
+                        term(['red', 'orange', 'yellow', 'green', 'blue', 'purple', 'pink', 'white', 'rainbow', 'hot', 'cool', 'jet', 'bone']);
+                    } else if (this.get_command().match(/^method /)){
+                        term(['random', 'sparkle', 'wheel', 'chase', 'pulse', 'wipe']);
+                    } else if (this.get_command().match(/^bright /)){
+                        term(['low', 'medium', 'high']);
+                    }
+                },
+                greetings: false,
+                onInit: function() {
+                    resp = $.post('/',{command: "banner"});
+                    this.echo(resp)
+                }
+            });
+    </script>
+</body>
+
+</html>
